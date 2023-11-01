@@ -1,3 +1,10 @@
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
+import javax.swing.tree.TreeNode;
+import java.sql.SQLOutput;
+import java.util.HashSet;
+import java.util.Set;
+
 class NodeT {
     int data;
     NodeT left, right;
@@ -13,6 +20,8 @@ class BinaryTree {
     NodeT root;
 
     void mirror() { root = mirror(root); }
+
+    Set<Integer> array = new HashSet<Integer>();
 
     NodeT mirror(NodeT NodeT)
     {
@@ -41,9 +50,30 @@ class BinaryTree {
             return;
 
         inOrder(NodeT.left);
-        System.out.print(NodeT.data + " ");
+        array.add(NodeT.data);
 
         inOrder(NodeT.right);
+    }
+    public int t2Sum(NodeT A, int B) {
+
+        inOrder(A);
+        for (Integer arr : array) {
+
+            System.out.println(arr);
+
+
+        }
+        for (Integer arr : array) {
+
+            System.out.println(arr);
+
+            if(arr < B && array.contains((int)Math.abs(arr-B)) && arr!= (int)Math.abs(arr-B))
+                return 1;
+        }
+
+        return 0;
+
+
     }
 
     /* testing for example NodeTs */
@@ -51,11 +81,11 @@ class BinaryTree {
     {
         /* creating a binary tree and entering the NodeTs */
         BinaryTree tree = new BinaryTree();
-        tree.root = new NodeT(1);
-        tree.root.left = new NodeT(2);
-        tree.root.right = new NodeT(3);
-        tree.root.left.left = new NodeT(4);
-        tree.root.left.right = new NodeT(5);
+        tree.root = new NodeT(7);
+        tree.root.left = new NodeT(5);
+        tree.root.right = new NodeT(20);
+//        tree.root.left.left = new NodeT(4);
+//        tree.root.left.right = new NodeT(7);
 
         /* print inorder traversal of the input tree */
         System.out.println(
@@ -70,5 +100,7 @@ class BinaryTree {
         System.out.println(
                 "Inorder traversal of the mirror tree is");
         tree.inOrder();
+
+        System.out.println("sum " + tree.t2Sum(tree.root, 13));
     }
 }
